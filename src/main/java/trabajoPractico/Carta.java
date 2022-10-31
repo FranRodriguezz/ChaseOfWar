@@ -22,16 +22,16 @@ public class Carta {
     private void loadAtkAndDef(String tipo){
         switch (tipo) {
             case "Luchador" -> {
-                this.ataque = 3;
+                this.ataque = 4;
                 this.defensa = 3;
             }
             case "Tanque" -> {
-                this.ataque = 0;
+                this.ataque = 1;
                 this.defensa = 6;
             }
             case "Hechicero" -> {
                 this.ataque = 6;
-                this.defensa = 0;
+                this.defensa = 1;
             }
             default -> { //caso carta magia
                 this.ataque = 0;
