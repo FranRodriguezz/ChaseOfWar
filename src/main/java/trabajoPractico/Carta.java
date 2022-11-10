@@ -19,6 +19,12 @@ public class Carta {
         }
     }
 
+    //Pre: La carta debe haber sido creada
+    //Post: Devuelve el tipo de carta
+    public tipoDeCarta getTipo(){
+        return this.tipo;
+    }
+
     //Pre: El tipo de carta debe ser valido
     //Post: Carga el ataque y la defensa de la carta
     private void cargarAtkYDef(){
