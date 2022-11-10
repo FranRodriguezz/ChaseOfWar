@@ -12,23 +12,23 @@ public class MazoDeCartas {
     //Post: Crea el mazo con sus unidades correspondientes, ya mezclado el mismo.
     public MazoDeCartas(){
         this.cargarUnidades();
-        this.shuffleDeck();
+        this.mezclarMazo();
     }
 
     //Pre: -
     //Post: Carga las unidades en el mazo, 10 cartas por unidad
     private void cargarUnidades(){
         for(int i = 0; i < cantidadCartasPorTipo; i++){
-            this.mazo.push(new Carta("Luchador"));
-            this.mazo.push(new Carta("Tanque"));
-            this.mazo.push(new Carta("Hechicero"));
-            this.mazo.push(new Carta("Juga2"));
+            this.mazo.push(new Carta(tipoDeCarta.Luchador));
+            this.mazo.push(new Carta(tipoDeCarta.Tanque));
+            this.mazo.push(new Carta(tipoDeCarta.Hechicero));
+            this.mazo.push(new Carta(tipoDeCarta.Magia));
         }
     }
 
     //Pre: -
     //Post: Mezcla el mazo
-    private void shuffleDeck(){
+    private void mezclarMazo(){
         Collections.shuffle(this.mazo);
     }
 }
