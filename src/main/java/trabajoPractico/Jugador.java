@@ -29,4 +29,30 @@ public abstract class Jugador {
     public void robarCarta(){
         this.baraja.add(this.mazo.mazo.pop());
     }
+
+    //Pre: La instancia jugador debe ser creada previamente
+    //Post: Devuelve la baraja del jugador
+    public ArrayList<Carta> getBaraja(){
+        return this.baraja;
+    }
+
+    //Pre: La baraja debe haber sido creada
+    //Post: Devuelve true si hay alguna carta para atacar en la baraja
+    public boolean hayCartaAtkEnBaraja(tipoDeCarta tipo){
+        return this.baraja.contains();
+    }
+
+
+    //Pre: La baraja debe haber sido creada
+    //Post: Devuelve true si hay alguna carta magia en la baraja
+    public boolean hayCartaMagiaEnBaraja(){
+        return this.baraja.contains(Carta.getTipo().equals(tipoDeCarta.Magia));
+    }
+
+    //Pre:
+    //Post:
+    public void removerCartaMagia(){
+        this.baraja.remove(Carta.getTipo().equals(tipoDeCarta.Magia));
+    }
+
 }
