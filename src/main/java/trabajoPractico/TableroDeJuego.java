@@ -28,7 +28,8 @@ public class TableroDeJuego {
     //Pre: La fila y la columna deben ser validos con respecto al tamaño del tablero
     //Post: Devuelve true si hay una carta en el espacio
     public boolean hayCarta(int fila, int col){
-        return !(tablero[fila][col].equals(null)); //ver
+
+        return tablero[fila][col] != null;
     }
 
     //Pre: La fila y la columna deben ser validas
