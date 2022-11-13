@@ -24,7 +24,7 @@ public abstract class Jugador {
         }
     }
 
-    //Pre:el mazo debe haber sido creado previamente
+    //Pre: el mazo debe haber sido creado previamente
     //Post: roba una carta del mazo y la añade a la baraja
     public void robarCarta(){
         this.baraja.add(this.mazo.mazo.pop());
@@ -38,7 +38,7 @@ public abstract class Jugador {
 
     //Pre: La baraja debe haber sido creada
     //Post: Devuelve true si hay alguna carta para atacar en la baraja
-    public boolean hayCartaAtkEnBaraja(tipoDeCarta tipo){
+    public boolean hayCartaAtkEnBaraja(){
         boolean hay = false;
         for(int i = 0; i < this.baraja.size(); i++){
             if(this.baraja.get(i).toString().equals("Luchador")){
@@ -67,8 +67,8 @@ public abstract class Jugador {
         return hay;
     }
 
-    //Pre:
-    //Post:
+    //Pre: -
+    //Post: Remueve una carta Magia de la baraja
     public void removerCartaMagia(){
 
         for(int i = 0; i < this.baraja.size(); i++){
@@ -77,6 +77,25 @@ public abstract class Jugador {
                 i = this.baraja.size();
             }
         }
+    }
+
+    //Pre: -
+    //Post: Remueve una carta atk de la baraja
+    public void removerCartaAtk(tipoDeCarta tipo){
+        int nroCarta = -1;
+        for(int i = 0; i < this.baraja.size(); i++){
+            if(this.baraja.get(i).toString().equals(tipo.toString())){
+                nroCarta = i;
+                i = this.baraja.size();
+            }
+        }
+        this.baraja.remove(nroCarta);
+    }
+
+    //Pre: -
+    //Pöst: Baja la vida del jugador directamente
+    public void bajarVida(int danio){
+        this.vida = this.vida - danio;
     }
 
 }
