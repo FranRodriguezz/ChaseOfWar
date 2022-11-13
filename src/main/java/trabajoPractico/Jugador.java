@@ -39,20 +39,44 @@ public abstract class Jugador {
     //Pre: La baraja debe haber sido creada
     //Post: Devuelve true si hay alguna carta para atacar en la baraja
     public boolean hayCartaAtkEnBaraja(tipoDeCarta tipo){
-        return this.baraja.contains();
+        boolean hay = false;
+        for(int i = 0; i < this.baraja.size(); i++){
+            if(this.baraja.get(i).toString().equals("Luchador")){
+                hay = true;
+            }
+            else if(this.baraja.get(i).toString().equals("Tanque")){
+                hay = true;
+            }
+            else if(this.baraja.get(i).toString().equals("Hechicero")){
+                hay = true;
+            }
+        }
+        return hay;
     }
 
 
     //Pre: La baraja debe haber sido creada
     //Post: Devuelve true si hay alguna carta magia en la baraja
     public boolean hayCartaMagiaEnBaraja(){
-        return this.baraja.contains(Carta.getTipo().equals(tipoDeCarta.Magia));
+        boolean hay = false;
+        for(int i = 0; i < this.baraja.size(); i++){
+            if(this.baraja.get(i).toString().equals("Magia")){
+                hay = true;
+            }
+        }
+        return hay;
     }
 
     //Pre:
     //Post:
     public void removerCartaMagia(){
-        this.baraja.remove(Carta.getTipo().equals(tipoDeCarta.Magia));
+
+        for(int i = 0; i < this.baraja.size(); i++){
+            if(this.baraja.get(i).toString().equals("Magia")){
+                this.baraja.remove(i);
+                i = this.baraja.size();
+            }
+        }
     }
 
 }
