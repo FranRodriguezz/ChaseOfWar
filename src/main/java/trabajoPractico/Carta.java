@@ -19,6 +19,20 @@ public class Carta {
         }
     }
 
+
+    //Pre: -
+    //Post: Devuelve la defensa de la carta
+    public int getDefensa(){
+        return this.defensa;
+    }
+
+
+    //Pre: -
+    //Post: Baja la defensa de la carta, si queda en 0 o menor la carta se destruye
+    public void bajarDefensa(int danio){
+        this.defensa = this.defensa - danio;
+    }
+
     //Pre: La carta debe haber sido creada
     //Post: Devuelve el tipo de carta
     public static tipoDeCarta getTipo(){
