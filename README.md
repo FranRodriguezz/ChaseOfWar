@@ -17,7 +17,7 @@ Se utilizara este patron de diseño para que el jugador pueda jugar en contra de
 ##### Luchador: posee 4 de atk y 3 de defensa
 ##### Tanque: posee 1 de atk y 6 de defensa
 ##### Hechicero: posee 6 de atk y 1 de defensa
-##### Magia: te permite jugar una carta extra ese turno
+##### Magia: te permite atacar dos veces en un turno
 
 
 
