@@ -35,7 +35,7 @@ public class Carta {
 
     //Pre: La carta debe haber sido creada
     //Post: Devuelve el tipo de carta
-    public static tipoDeCarta getTipo(){
+    public tipoDeCarta getTipo(){
         return this.tipo;
     }
 
