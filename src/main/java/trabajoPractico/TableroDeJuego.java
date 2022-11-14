@@ -18,7 +18,7 @@ public class TableroDeJuego {
     public boolean hayEspacioIA(){
         boolean hay = false;
         for(int i = 0; i < slotCartas; i++){
-            if(this.hayCarta(filaIA, i)){
+            if(!this.hayCarta(filaIA, i)){
                 hay = true;
             }
         }
