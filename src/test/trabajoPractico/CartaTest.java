@@ -47,4 +47,25 @@ public class CartaTest {
         carta.bajarDefensa(1);
         assertEquals(carta.getDefensa(), 0);
     }
+
+    @Test
+    public void getAtkTanque() {
+        var carta = new Carta(tipoDeCarta.Tanque);
+        int atk = carta.getAtk();
+        assertEquals(atk, 1);
+    }
+
+    @Test
+    public void getAtkLuchador() {
+        var carta = new Carta(tipoDeCarta.Luchador);
+        int atk = carta.getAtk();
+        assertEquals(atk, 4);
+    }
+
+    @Test
+    public void getAtkHechicero() {
+        var carta = new Carta(tipoDeCarta.Hechicero);
+        int atk = carta.getAtk();
+        assertEquals(atk, 6);
+    }
 }
