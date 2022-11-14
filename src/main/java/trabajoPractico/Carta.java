@@ -26,6 +26,12 @@ public class Carta {
         return this.defensa;
     }
 
+    //Pre: -
+    //Post: Devuelve el atk de la carta
+    public int getAtk(){
+        return this.ataque;
+    }
+
 
     //Pre: -
     //Post: Baja la defensa de la carta, si queda en 0 o menor la carta se destruye
