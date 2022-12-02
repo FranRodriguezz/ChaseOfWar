@@ -10,13 +10,8 @@ public class Carta {
     //Pre: El tipo de la carta debe ser Luchador, Tanque, Hechicero o Magia
     //Post: Crea una carta con su tipo correspondiente
     public Carta(tipoDeCarta tipo){
-        if(esUnidadValida(tipo)){
-            this.tipo = tipo;
-            cargarAtkYDef();
-        }
-        else{
-            throw new RuntimeException("Tipo de carta invalido");
-        }
+        this.tipo = tipo;
+        cargarAtkYDef();
     }
 
 
@@ -70,12 +65,4 @@ public class Carta {
             }
         }
     }
-
-    //Pre: -
-    //Post: Devuelve true en caso de ser un tipo de carta valido.
-    private boolean esUnidadValida(tipoDeCarta tipo){
-        return (tipo.toString().equals("Luchador") || tipo.toString().equals("Tanque") ||
-                tipo.toString().equals("Hechicero") || tipo.toString().equals("Magia"));
-    }
-
 }
