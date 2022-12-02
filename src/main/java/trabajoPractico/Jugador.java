@@ -41,13 +41,13 @@ public abstract class Jugador {
     public boolean hayCartaAtkEnBaraja(){
         boolean hay = false;
         for(int i = 0; i < this.baraja.size(); i++){
-            if(this.baraja.get(i).toString().equals("Luchador")){
+            if(this.baraja.get(i).getTipo() == tipoDeCarta.Luchador){
                 hay = true;
             }
-            else if(this.baraja.get(i).toString().equals("Tanque")){
+            else if(this.baraja.get(i).getTipo() == tipoDeCarta.Tanque){
                 hay = true;
             }
-            else if(this.baraja.get(i).toString().equals("Hechicero")){
+            else if(this.baraja.get(i).getTipo() == tipoDeCarta.Hechicero){
                 hay = true;
             }
         }
@@ -60,7 +60,7 @@ public abstract class Jugador {
     public boolean hayCartaMagiaEnBaraja(){
         boolean hay = false;
         for(int i = 0; i < this.baraja.size(); i++){
-            if(this.baraja.get(i).toString().equals("Magia")){
+            if(this.baraja.get(i).getTipo() == tipoDeCarta.Magia){
                 hay = true;
             }
         }
@@ -70,9 +70,8 @@ public abstract class Jugador {
     //Pre: -
     //Post: Remueve una carta Magia de la baraja
     public void removerCartaMagia(){
-
         for(int i = 0; i < this.baraja.size(); i++){
-            if(this.baraja.get(i).toString().equals("Magia")){
+            if(this.baraja.get(i).getTipo() == tipoDeCarta.Magia){
                 this.baraja.remove(i);
                 i = this.baraja.size();
             }
@@ -84,7 +83,7 @@ public abstract class Jugador {
     public void removerCartaAtk(tipoDeCarta tipo){
         int nroCarta = -1;
         for(int i = 0; i < this.baraja.size(); i++){
-            if(this.baraja.get(i).toString().equals(tipo.toString())){
+            if(this.baraja.get(i).getTipo() == tipo){
                 nroCarta = i;
                 i = this.baraja.size();
             }

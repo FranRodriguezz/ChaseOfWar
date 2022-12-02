@@ -39,11 +39,11 @@ public class JugadorIA extends Jugador {
     public Carta elegirCartaAtk() {
         if (this.hayCartaAtkEnBaraja()) {
             for (int i = 0; i < this.getBaraja().size(); i++) {
-                if (this.getBaraja().get(i).toString().equals("Luchador")) {
+                if (this.getBaraja().get(i).getTipo() == tipoDeCarta.Luchador) {
                     return this.getBaraja().get(i);
-                } else if (this.getBaraja().get(i).toString().equals("Tanque")) {
+                } else if (this.getBaraja().get(i).getTipo() == tipoDeCarta.Tanque) {
                     return this.getBaraja().get(i);
-                } else if (this.getBaraja().get(i).toString().equals("Hechicero")) {
+                } else if (this.getBaraja().get(i).getTipo() == tipoDeCarta.Hechicero) {
                     return this.getBaraja().get(i);
                 }
             }
@@ -78,11 +78,11 @@ public class JugadorIA extends Jugador {
     //Pre: -
     //Post: Devuelve el daño en funcion de la carta
     public int hacerDanio(tipoDeCarta tipo) {
-        if (tipo.toString().equals("Luchador")) {
+        if (tipo == tipoDeCarta.Luchador) {
             return 4;
-        } else if (tipo.toString().equals("Tanque")) {
+        } else if (tipo == tipoDeCarta.Tanque) {
             return 1;
-        } else if (tipo.toString().equals("Hechicero")) {
+        } else if (tipo == tipoDeCarta.Hechicero) {
             return 6;
         }
         throw new RuntimeException("Error al hacer danio");
