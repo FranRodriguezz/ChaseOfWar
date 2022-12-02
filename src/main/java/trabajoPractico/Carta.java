@@ -4,34 +4,32 @@ package trabajoPractico;
 public class Carta {
 
     private TipoDeCarta tipo;//Luchador, Tanque, Hechicero , magia(x def 0atk 0def)
-    private int ataque;
-    private int defensa;
+
 
     //Pre: El tipo de la carta debe ser Luchador, Tanque, Hechicero o Magia
     //Post: Crea una carta con su tipo correspondiente
     public Carta(TipoDeCarta tipo){
         this.tipo = tipo;
-        cargarAtkYDef();
     }
 
 
     //Pre: -
     //Post: Devuelve la defensa de la carta
     public int getDefensa(){
-        return this.defensa;
+        return this.tipo.getDefensa();
     }
 
     //Pre: -
     //Post: Devuelve el atk de la carta
     public int getAtk(){
-        return this.ataque;
+        return this.tipo.getAtaque();
     }
 
 
     //Pre: -
     //Post: Baja la defensa de la carta, si queda en 0 o menor la carta se destruye
     public void bajarDefensa(int danio){
-        this.defensa = this.defensa - danio;
+        this.tipo.bajarDefensa(danio);
     }
 
     //Pre: La carta debe haber sido creada
@@ -40,29 +38,4 @@ public class Carta {
         return this.tipo;
     }
 
-    //Pre: El tipo de carta debe ser valido
-    //Post: Carga el ataque y la defensa de la carta
-    private void cargarAtkYDef(){
-        switch (this.tipo) {
-            case LUCHADOR -> {
-                this.ataque = 4;
-                this.defensa = 3;
-            }
-            case TANQUE -> {
-                this.ataque = 1;
-                this.defensa = 6;
-            }
-            case HECHICERO -> {
-                this.ataque = 6;
-                this.defensa = 1;
-            }
-            case MAGIA -> {
-                this.ataque = 0;
-                this.defensa = 0;
-            }
-            default -> {
-                throw new RuntimeException("Tipo de carta invalido");
-            }
-        }
-    }
 }
