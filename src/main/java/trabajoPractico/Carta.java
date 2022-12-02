@@ -3,13 +3,13 @@ package trabajoPractico;
 
 public class Carta {
 
-    private tipoDeCarta tipo;//Luchador, Tanque, Hechicero , magia(x def 0atk 0def)
+    private TipoDeCarta tipo;//Luchador, Tanque, Hechicero , magia(x def 0atk 0def)
     private int ataque;
     private int defensa;
 
     //Pre: El tipo de la carta debe ser Luchador, Tanque, Hechicero o Magia
     //Post: Crea una carta con su tipo correspondiente
-    public Carta(tipoDeCarta tipo){
+    public Carta(TipoDeCarta tipo){
         this.tipo = tipo;
         cargarAtkYDef();
     }
@@ -36,7 +36,7 @@ public class Carta {
 
     //Pre: La carta debe haber sido creada
     //Post: Devuelve el tipo de carta
-    public tipoDeCarta getTipo(){
+    public TipoDeCarta getTipo(){
         return this.tipo;
     }
 
@@ -44,19 +44,19 @@ public class Carta {
     //Post: Carga el ataque y la defensa de la carta
     private void cargarAtkYDef(){
         switch (this.tipo) {
-            case Luchador -> {
+            case LUCHADOR -> {
                 this.ataque = 4;
                 this.defensa = 3;
             }
-            case Tanque -> {
+            case TANQUE -> {
                 this.ataque = 1;
                 this.defensa = 6;
             }
-            case Hechicero -> {
+            case HECHICERO -> {
                 this.ataque = 6;
                 this.defensa = 1;
             }
-            case Magia -> {
+            case MAGIA -> {
                 this.ataque = 0;
                 this.defensa = 0;
             }

@@ -19,10 +19,10 @@ public class MazoDeCartas {
     //Post: Carga las unidades en el mazo, 10 cartas por unidad
     private void cargarUnidades(){
         for(int i = 0; i < cantidadCartasPorTipo; i++){
-            this.mazo.push(new Carta(tipoDeCarta.Luchador));
-            this.mazo.push(new Carta(tipoDeCarta.Tanque));
-            this.mazo.push(new Carta(tipoDeCarta.Hechicero));
-            this.mazo.push(new Carta(tipoDeCarta.Magia));
+            this.mazo.push(new Carta(TipoDeCarta.LUCHADOR));
+            this.mazo.push(new Carta(TipoDeCarta.TANQUE));
+            this.mazo.push(new Carta(TipoDeCarta.HECHICERO));
+            this.mazo.push(new Carta(TipoDeCarta.MAGIA));
         }
     }
 
