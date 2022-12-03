@@ -41,14 +41,9 @@ public abstract class Jugador {
     public boolean hayCartaAtkEnBaraja(){
         boolean hay = false;
         for(int i = 0; i < this.baraja.size(); i++){
-            if(this.baraja.get(i).getTipo() == TipoDeCarta.LUCHADOR){
+            if(this.baraja.get(i).getTipo().esAtaque()){
                 hay = true;
-            }
-            else if(this.baraja.get(i).getTipo() == TipoDeCarta.TANQUE){
-                hay = true;
-            }
-            else if(this.baraja.get(i).getTipo() == TipoDeCarta.HECHICERO){
-                hay = true;
+                i = this.baraja.size();
             }
         }
         return hay;
