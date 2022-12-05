@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Aplicacion extends Application {
@@ -24,6 +26,7 @@ public class Aplicacion extends Application {
         HBox hboxIA = new HBox(partida.getJugadorIA().getBaraja().size());
         colocarCartasEnemigas(partida, hboxIA);
         vbox.getChildren().add(hboxIA);
+        vbox.setSpacing(60);
 
         //tablero enemigo:
         HBox tableroIA = new HBox(3);
@@ -48,6 +51,7 @@ public class Aplicacion extends Application {
 
     private void colocarCartasEnemigas(Partida partida, HBox hboxIA){
         for(int i = 0; i < partida.getJugadorIA().getBaraja().size(); i++){
+            var shape = new Rectangle(5,10, Paint.valueOf("red"));
             var label = new Label("Carta enemiga");
             hboxIA.setAlignment(Pos.CENTER);
             hboxIA.setSpacing(10);
