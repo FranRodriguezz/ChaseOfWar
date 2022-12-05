@@ -6,7 +6,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.RadialGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -21,12 +24,12 @@ public class Aplicacion extends Application {
         primaryStage.setTitle("Chase of war");
         VBox vbox = new VBox();
         Partida partida = new Partida();
+        vbox.setSpacing(60);
 
         //cartas enemigas:
         HBox hboxIA = new HBox(partida.getJugadorIA().getBaraja().size());
         colocarCartasEnemigas(partida, hboxIA);
         vbox.getChildren().add(hboxIA);
-        vbox.setSpacing(60);
 
         //tablero enemigo:
         HBox tableroIA = new HBox(3);
@@ -51,17 +54,21 @@ public class Aplicacion extends Application {
 
     private void colocarCartasEnemigas(Partida partida, HBox hboxIA){
         for(int i = 0; i < partida.getJugadorIA().getBaraja().size(); i++){
-            var shape = new Rectangle(5,10, Paint.valueOf("red"));
-            var label = new Label("Carta enemiga");
+            var color = new RadialGradient(50, .8, .5, .5, .7, true, CycleMethod.NO_CYCLE,
+                    new Stop(.5f, Color.BLACK),
+                    new Stop(.7f, Color.LIGHTPINK),
+                    new Stop(.9f, Color.BLACK));
+            var label = new Rectangle(50,60, color);
             hboxIA.setAlignment(Pos.CENTER);
-            hboxIA.setSpacing(10);
+            hboxIA.setSpacing(60);
             hboxIA.getChildren().add(label);
         }
     }
 
+
     private void colocarTablero(Partida partida, HBox hBox){
         for(int i = 0; i < 3; i++){
-            var label = new Label("Vacio");
+            var label = new Label("| Vacio |");
             hBox.setAlignment(Pos.CENTER);
             hBox.setSpacing(100);
             hBox.getChildren().add(label);
