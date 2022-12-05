@@ -83,6 +83,6 @@ public class JugadorIA extends Jugador {
 
     //Post: Ataca directo al jugador humano
     public void atacarDirecto(Partida partida, Carta cartaActual) {
-        partida.jugador.bajarVida(hacerDanio(cartaActual.getTipo()));
+        partida.getJugadorHumano().bajarVida(hacerDanio(cartaActual.getTipo()));
     }
 }

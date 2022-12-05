@@ -13,6 +13,7 @@ public abstract class Jugador {
     public Jugador() {
         this.vida = 20;
         this.mazo = new MazoDeCartas();
+        this.baraja = new ArrayList<Carta>();
         this.cargarBarajaInicial();
     }
 
