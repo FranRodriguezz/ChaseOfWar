@@ -21,8 +21,10 @@ public class JugadorHumano extends Jugador{
         this.removerCartaMagia();
     }
 
+    //Pre: la columna debe ser de 0 a 2
     //Post:
-    public void atacar(Partida partida){
-        //Logica atacar
+    public void atacar(Partida partida, int colCarta, int colEnemiga){
+        int danio = partida.getTablero().getTablero(1,colCarta).getAtk();
+        partida.getTablero().getTablero(0,colEnemiga).bajarDefensa(danio);
     }
 }
