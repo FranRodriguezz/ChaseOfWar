@@ -57,7 +57,7 @@ public class Aplicacion extends Application {
         var vidaUsuario = new ProgressBar(partida.getJugadorHumano().getVida());
         vbox.getChildren().add(vidaUsuario);
 
-        Scene scene = new Scene(vbox, 720, 480);
+        Scene scene = new Scene(vbox, 700, 550);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
