@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,10 +24,19 @@ public class Aplicacion extends Application {
     public void start(Stage primaryStage) throws FileNotFoundException {
         primaryStage.setTitle("Chase of war");
         VBox vbox = new VBox();
-        Partida partida = new Partida();
-        vbox.setSpacing(60);
+        vbox.setSpacing(50);
         vbox.setAlignment(Pos.CENTER);
+        Partida partida = new Partida();
+        crearUI(partida, vbox);
 
+        Scene scene = new Scene(vbox, 700, 625);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+
+
+    private void crearUI(Partida partida, VBox vbox) throws FileNotFoundException {
         //vida enemiga:
         var vidaIA = new ProgressBar(partida.getJugadorIA().getVida());
         vbox.getChildren().add(vidaIA);
@@ -56,10 +64,6 @@ public class Aplicacion extends Application {
         //vida user:
         var vidaUsuario = new ProgressBar(partida.getJugadorHumano().getVida());
         vbox.getChildren().add(vidaUsuario);
-
-        Scene scene = new Scene(vbox, 700, 550);
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
 
 
@@ -77,9 +81,13 @@ public class Aplicacion extends Application {
     }
 
 
-    private void colocarTablero(Partida partida, HBox hBox){
+    private void colocarTablero(Partida partida, HBox hBox) throws FileNotFoundException {
+        Image image = new Image(new FileInputStream("src/main/resources/Vacio.jpg"));
         for(int i = 0; i < 3; i++){
-            var label = new Label("| Vacio |");
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(80);
+            imageView.setFitWidth(60);
+            var label = new Group(imageView);
             hBox.setAlignment(Pos.CENTER);
             hBox.setSpacing(100);
             hBox.getChildren().add(label);
