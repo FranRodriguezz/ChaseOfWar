@@ -13,7 +13,6 @@ public class TableroDeJuego {
         this.tablero = new Carta[2][3];
     }
 
-    //Pre: -
     //Post: Devuelve true si hay espacio para que la IA coloque una carta
     public boolean hayEspacioIA(){
         boolean hay = false;
@@ -38,7 +37,6 @@ public class TableroDeJuego {
         this.tablero[fila][col] = carta;
     }
 
-    //Pre: -
     //Post: Devuelve true si el jugador humano tiene una carta en juego
     public boolean hayCartaJugador(){
         boolean hay = false;
@@ -50,10 +48,37 @@ public class TableroDeJuego {
         return hay;
     }
 
-    //Pre: -
+    //Post: Devuelve true si el jugador IA tiene una carta en juego
+    public boolean hayCartaMaquina(){
+        boolean hay = false;
+        for(int i = 0; i < slotCartas; i++){
+            if(this.hayCarta(filaIA, i)){
+                hay = true;
+            }
+        }
+        return hay;
+    }
+
+    //Post: Devuelve true si hay espacio para que el jugador coloque una carta
+    public boolean hayEspacioJugador(){
+        int cantCartas = 0;
+        for(int i = 0; i < slotCartas; i++){
+            if(this.hayCarta(filaHumano, i)){
+                cantCartas++;
+            }
+        }
+        return cantCartas < 3;
+    }
+
     //Post: Devuelve la carta que hay en el tablero si la hay
     public Carta getTablero(int fila, int col){
         return this.tablero[fila][col];
     }
 
+    //
+    public void eliminarCarta(int fila, int col){
+        if (this.tablero[fila][col].getDefensa() <= 0){
+            this.tablero[fila][col] = null;
+        }
+    }
 }
