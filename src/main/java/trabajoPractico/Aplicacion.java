@@ -2,16 +2,18 @@ package trabajoPractico;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class Aplicacion extends Application {
 
@@ -20,11 +22,16 @@ public class Aplicacion extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws FileNotFoundException {
         primaryStage.setTitle("Chase of war");
         VBox vbox = new VBox();
         Partida partida = new Partida();
         vbox.setSpacing(60);
+        vbox.setAlignment(Pos.CENTER);
+
+        //vida enemiga:
+        var vidaIA = new ProgressBar(partida.getJugadorIA().getVida());
+        vbox.getChildren().add(vidaIA);
 
         //cartas enemigas:
         HBox hboxIA = new HBox(partida.getJugadorIA().getBaraja().size());
@@ -46,19 +53,23 @@ public class Aplicacion extends Application {
         colocarCartasUsuario(partida, hboxJugador);
         vbox.getChildren().add(hboxJugador);
 
-        Scene scene = new Scene(vbox, 500, 300);
+        //vida user:
+        var vidaUsuario = new ProgressBar(partida.getJugadorHumano().getVida());
+        vbox.getChildren().add(vidaUsuario);
+
+        Scene scene = new Scene(vbox, 720, 480);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
 
-    private void colocarCartasEnemigas(Partida partida, HBox hboxIA){
+    private void colocarCartasEnemigas(Partida partida, HBox hboxIA) throws FileNotFoundException {
+        Image image = new Image(new FileInputStream("src/main/resources/Reverso.jpg"));
         for(int i = 0; i < partida.getJugadorIA().getBaraja().size(); i++){
-            var color = new RadialGradient(50, .8, .5, .5, .7, true, CycleMethod.NO_CYCLE,
-                    new Stop(.5f, Color.BLACK),
-                    new Stop(.7f, Color.LIGHTPINK),
-                    new Stop(.9f, Color.BLACK));
-            var label = new Rectangle(50,60, color);
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(80);
+            imageView.setFitWidth(60);
+            var label = new Group(imageView);
             hboxIA.setAlignment(Pos.CENTER);
             hboxIA.setSpacing(60);
             hboxIA.getChildren().add(label);
@@ -75,12 +86,36 @@ public class Aplicacion extends Application {
         }
     }
 
-    private void colocarCartasUsuario(Partida partida, HBox hbox){
+    private void colocarCartasUsuario(Partida partida, HBox hbox) throws FileNotFoundException {
         for(int i = 0; i < partida.getJugadorHumano().getBaraja().size(); i++){
-            var label = new Label(partida.getJugadorHumano().getBaraja().get(i).getTipo().toString());
+            var label = asignarCartaUsuario(partida.getJugadorHumano().getBaraja().get(i).getTipo());
             hbox.setAlignment(Pos.CENTER);
-            hbox.setSpacing(40);
+            hbox.setSpacing(60);
             hbox.getChildren().add(label);
         }
+    }
+
+    private Group asignarCartaUsuario(TipoDeCarta tipo) throws FileNotFoundException {
+        Image image = null;
+        Group root = null;
+        switch (tipo){
+            case LUCHADOR -> {
+                image = new Image(new FileInputStream("src/main/resources/Luchador.jpg"));
+            }
+            case TANQUE -> {
+                image = new Image(new FileInputStream("src/main/resources/Tanque.jpg"));
+            }
+            case HECHICERO -> {
+                image = new Image(new FileInputStream("src/main/resources/Hechicero.jpg"));
+            }
+            case MAGIA -> {
+                image = new Image(new FileInputStream("src/main/resources/Magia.jpg"));
+            }
+        }
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(80);
+        imageView.setFitWidth(60);
+        root = new Group(imageView);
+        return root;
     }
 }
