@@ -97,20 +97,16 @@ public class Aplicacion extends Application {
 
     private Group asignarCartaUsuario(TipoDeCarta tipo) throws FileNotFoundException {
         Image image = null;
-        Group root = null;
+        Group root;
         switch (tipo){
-            case LUCHADOR -> {
+            case LUCHADOR ->
                 image = new Image(new FileInputStream("src/main/resources/Luchador.jpg"));
-            }
-            case TANQUE -> {
+            case TANQUE ->
                 image = new Image(new FileInputStream("src/main/resources/Tanque.jpg"));
-            }
-            case HECHICERO -> {
+            case HECHICERO ->
                 image = new Image(new FileInputStream("src/main/resources/Hechicero.jpg"));
-            }
-            case MAGIA -> {
+            case MAGIA ->
                 image = new Image(new FileInputStream("src/main/resources/Magia.jpg"));
-            }
         }
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(80);
