@@ -57,20 +57,15 @@ public class Partida {
 
 
     //Post: Se realizan los turnos hasta que un jugador pierda sus puntos de vida
-    public void jugar() throws IOException {
-        int turno = 0;
-        while(!finalizada()){
-            if(turno == 0){
-                turnoJugador();
-                turno = 1;
-            }
-            else{
-                turnoMaquina();
-                turno = 0;
-            }
+    public void jugar(int turno) throws IOException {
+        if (turno == 0) {
+            turnoJugador();
+        } else {
+            turnoMaquina();
         }
         this.ganador();
     }
+
 
     //Post: Realiza las acciones correspondientes del turno del jugador
     public void turnoJugador() throws IOException {
@@ -78,6 +73,7 @@ public class Partida {
         this.jugador.robarCarta();
         colocarCartaJugador(reader);
         ataqueJugador(reader);
+        reader.close();
     }
 
     //Post: coloca la carta del jugador en el tablero
@@ -113,11 +109,11 @@ public class Partida {
                 System.out.println("A que carta atacas? (1, 2 o 3)");
                 int objetivo = Integer.parseInt(reader.readLine());
                 this.jugador.atacarCarta(this, carta - 1, objetivo - 1);
-                veces--;
             }
             else{
                 this.jugador.atacarVida(this, carta - 1);
             }
+            veces--;
         }
     }
 

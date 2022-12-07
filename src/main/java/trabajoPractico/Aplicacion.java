@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Aplicacion extends Application {
 
@@ -21,14 +22,24 @@ public class Aplicacion extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws FileNotFoundException {
+    public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Chase of war");
         VBox vbox = new VBox();
         vbox.setSpacing(50);
         vbox.setAlignment(Pos.CENTER);
         Partida partida = new Partida();
         crearUI(partida, vbox);
-
+        int turno = 0;
+        /*
+        while(!partida.finalizada()){
+            partida.jugar(turno);
+            if(turno == 0){
+                turno = 1;
+            }
+            else{
+                turno = 0;
+            }
+        }*/
         Scene scene = new Scene(vbox, 700, 625);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -82,8 +93,14 @@ public class Aplicacion extends Application {
 
 
     private void colocarTablero(Partida partida, HBox hBox, int filaTarget) throws FileNotFoundException {
+        Image image;
         for(int i = 0; i < 3; i++){
-            Image image = cargarImagen(partida, filaTarget, i);
+            if(partida.getTablero().getTablero(filaTarget, i) == null){
+                image = new Image(new FileInputStream("src/main/resources/Vacio.jpg"));
+            }
+            else{
+                image = cargarImagen(partida, filaTarget, i);
+            }
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(80);
             imageView.setFitWidth(60);
@@ -103,8 +120,6 @@ public class Aplicacion extends Application {
                 image = new Image(new FileInputStream("src/main/resources/Tanque.jpg"));
             case HECHICERO ->
                 image = new Image(new FileInputStream("src/main/resources/Hechicero.jpg"));
-            default ->
-                image = new Image(new FileInputStream("src/main/resources/Vacio.jpg"));
         }
         return image;
     }

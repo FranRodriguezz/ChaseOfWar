@@ -44,7 +44,7 @@ public class JugadorIA extends Jugador {
                 }
             }
         }
-        throw new RuntimeException("Error al elegir carta atk");
+        return null;
     }
 
     //Post: Cumple funciones de atacar, a una carta o directo
