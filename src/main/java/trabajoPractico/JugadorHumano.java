@@ -18,6 +18,7 @@ public class JugadorHumano extends Jugador{
 
     //Post: Juega una carta magia de la mano
     public void jugarCartaMagia(){
+
         this.removerCartaMagia();
     }
 

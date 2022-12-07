@@ -29,7 +29,7 @@ public class Carta {
     //Pre: -
     //Post: Baja la defensa de la carta, si queda en 0 o menor la carta se destruye
     public void bajarDefensa(int danio){
-        this.tipo.bajarDefensa(danio);
+        this.getTipo().setDefensa(this.getDefensa() - danio);
     }
 
     //Pre: La carta debe haber sido creada

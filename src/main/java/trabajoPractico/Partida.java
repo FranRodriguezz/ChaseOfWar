@@ -22,7 +22,7 @@ public class Partida {
     public void ganador(){
         if(this.jugador.getVida() <= 0)
             System.out.println("Gano la maquina");
-        else
+        else if(this.getJugadorIA().getVida() <= 0)
             System.out.println("Ganaste");
     }
 
@@ -79,7 +79,7 @@ public class Partida {
     //Post: coloca la carta del jugador en el tablero
     public void colocarCartaJugador(BufferedReader reader) throws IOException {
         if(this.getTablero().hayEspacioJugador()){
-            System.out.println("Ingrese la carta que quiere jugar, del 1 al " + this.jugador.getBaraja().size());
+            System.out.println("Ingrese la carta que quiere jugar, del 1 al " + (this.jugador.getBaraja().size() - 1));
             int carta = Integer.parseInt(reader.readLine());
             System.out.println("Ingrese la posicion (1, 2 o 3)");
             int pos = Integer.parseInt(reader.readLine());

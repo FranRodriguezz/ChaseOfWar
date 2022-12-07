@@ -74,7 +74,7 @@ public abstract class Jugador {
         for(int i = 0; i < this.baraja.size(); i++){
             if(this.baraja.get(i).getTipo() == TipoDeCarta.MAGIA){
                 this.baraja.remove(i);
-                i = this.baraja.size();
+                break;
             }
         }
     }

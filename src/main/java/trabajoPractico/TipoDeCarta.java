@@ -27,6 +27,11 @@ public enum TipoDeCarta {
         return this.ataque;
     }
 
+    //Post:
+    public void setDefensa(int nuevaDef){
+        this.defensa = nuevaDef;
+    }
+
     //Post: devuelve true si la carta es de ataque
     public boolean esAtaque(){
         boolean es = false;
@@ -35,8 +40,4 @@ public enum TipoDeCarta {
         return es;
     }
 
-    //Post: Baja la defensa de una carta
-    public void bajarDefensa(int danio){
-        this.defensa = this.defensa - danio;
-    }
 }

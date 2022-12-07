@@ -1,9 +1,12 @@
 package trabajoPractico;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,26 +31,28 @@ public class Aplicacion extends Application {
         vbox.setSpacing(50);
         vbox.setAlignment(Pos.CENTER);
         Partida partida = new Partida();
-        crearUI(partida, vbox);
+        var btn = new Button("Finalizar Turno");
+        crearUI(partida, vbox, btn);
         int turno = 0;
-        /*
-        while(!partida.finalizada()){
-            partida.jugar(turno);
-            if(turno == 0){
-                turno = 1;
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    partida.jugar(turno);
+                    crearUI(partida, vbox, btn);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
-            else{
-                turno = 0;
-            }
-        }*/
-        Scene scene = new Scene(vbox, 700, 625);
+        });
+        Scene scene = new Scene(vbox, 1300, 700);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
 
 
-    private void crearUI(Partida partida, VBox vbox) throws FileNotFoundException {
+    private void crearUI(Partida partida, VBox vbox, Button btn) throws FileNotFoundException {
         //vida enemiga:
         var vidaIA = new ProgressBar(partida.getJugadorIA().getVida());
         vbox.getChildren().add(vidaIA);
@@ -73,8 +78,13 @@ public class Aplicacion extends Application {
         vbox.getChildren().add(hboxJugador);
 
         //vida user:
+        HBox vidaUser = new HBox(2);
+        vidaUser.setAlignment(Pos.CENTER);
+        vidaUser.setSpacing(20);
         var vidaUsuario = new ProgressBar(partida.getJugadorHumano().getVida());
-        vbox.getChildren().add(vidaUsuario);
+        vidaUser.getChildren().add(vidaUsuario);
+        vidaUser.getChildren().add(btn);
+        vbox.getChildren().add(vidaUser);
     }
 
 
