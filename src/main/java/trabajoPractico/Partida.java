@@ -19,11 +19,11 @@ public class Partida {
 
 
     //Post: nos devuelve un string segun quien gano la partida.
-    public String ganador(){
+    public void ganador(){
         if(this.jugador.getVida() <= 0)
-            return "Gano la maquina";
+            System.out.println("Gano la maquina");
         else
-            return "Ganaste";
+            System.out.println("Ganaste");
     }
 
     //Post: Devuelve true si la partida finalizo
@@ -57,7 +57,7 @@ public class Partida {
 
 
     //Post: Se realizan los turnos hasta que un jugador pierda sus puntos de vida
-    public String jugar() throws IOException {
+    public void jugar() throws IOException {
         int turno = 0;
         while(!finalizada()){
             if(turno == 0){
@@ -69,7 +69,7 @@ public class Partida {
                 turno = 0;
             }
         }
-        return ganador();
+        this.ganador();
     }
 
     //Post: Realiza las acciones correspondientes del turno del jugador

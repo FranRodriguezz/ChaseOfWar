@@ -48,12 +48,12 @@ public class Aplicacion extends Application {
 
         //tablero enemigo:
         HBox tableroIA = new HBox(3);
-        colocarTablero(partida, tableroIA);
+        colocarTablero(partida, tableroIA, 0);
         vbox.getChildren().add(tableroIA);
 
         //tablero user:
         HBox tableroUsuario = new HBox(3);
-        colocarTablero(partida, tableroUsuario);
+        colocarTablero(partida, tableroUsuario, 1);
         vbox.getChildren().add(tableroUsuario);
 
         //cartas enemigas:
@@ -81,9 +81,9 @@ public class Aplicacion extends Application {
     }
 
 
-    private void colocarTablero(Partida partida, HBox hBox) throws FileNotFoundException {
-        Image image = new Image(new FileInputStream("src/main/resources/Vacio.jpg"));
+    private void colocarTablero(Partida partida, HBox hBox, int filaTarget) throws FileNotFoundException {
         for(int i = 0; i < 3; i++){
+            Image image = cargarImagen(partida, filaTarget, i);
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(80);
             imageView.setFitWidth(60);
@@ -92,6 +92,21 @@ public class Aplicacion extends Application {
             hBox.setSpacing(100);
             hBox.getChildren().add(label);
         }
+    }
+
+    private Image cargarImagen(Partida partida, int filaTarget, int col) throws FileNotFoundException {
+        Image image = null;
+        switch (partida.getTablero().getTablero(filaTarget, col).getTipo()){
+            case LUCHADOR ->
+                image = new Image(new FileInputStream("src/main/resources/Luchador.jpg"));
+            case TANQUE ->
+                image = new Image(new FileInputStream("src/main/resources/Tanque.jpg"));
+            case HECHICERO ->
+                image = new Image(new FileInputStream("src/main/resources/Hechicero.jpg"));
+            default ->
+                image = new Image(new FileInputStream("src/main/resources/Vacio.jpg"));
+        }
+        return image;
     }
 
     private void colocarCartasUsuario(Partida partida, HBox hbox) throws FileNotFoundException {
