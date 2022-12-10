@@ -6,29 +6,22 @@ import java.io.InputStreamReader;
 
 public class Partida {
     private TableroDeJuego tablero;
-    private JugadorIA maquina;
-    private JugadorHumano jugador;
+
+    private Jugador[] jugadores;
 
     //Pre:
     //Post: Crea la partida
     public Partida(){
         this.tablero = new TableroDeJuego();
-        this.maquina = new JugadorIA();
-        this.jugador = new JugadorHumano();
+        this.jugadores = new Jugador[2];
+        this.jugadores[0] = new JugadorIA();
+        this.jugadores[1] = new JugadorHumano();
     }
 
-
-    //Post: nos devuelve un string segun quien gano la partida.
-    public void ganador(){
-        if(this.jugador.getVida() <= 0)
-            System.out.println("Gano la maquina");
-        else if(this.getJugadorIA().getVida() <= 0)
-            System.out.println("Ganaste");
-    }
 
     //Post: Devuelve true si la partida finalizo
     public boolean finalizada(){
-        return (this.jugador.getVida() <= 0 || this.maquina.getVida() <= 0);
+        return (this.jugadores[0].getVida() <= 0 || this.jugadores[1].getVida() <= 0);
     }
 
     //Post: Devuelve el tablero
@@ -38,14 +31,14 @@ public class Partida {
 
 
     //Post: Devuelve el jugador humano
-    public JugadorHumano getJugadorHumano(){
-        return this.jugador;
+    public Jugador getJugadorHumano(){
+        return this.jugadores[1];
     }
 
 
     //Post: Devuelve el jugador ia
-    public JugadorIA getJugadorIA(){
-        return this.maquina;
+    public Jugador getJugadorIA(){
+        return this.jugadores[0];
     }
 
 
@@ -63,38 +56,38 @@ public class Partida {
         } else {
             turnoMaquina();
         }
-        this.ganador();
     }
 
 
     //Post: Realiza las acciones correspondientes del turno del jugador
     public void turnoJugador() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        this.jugador.robarCarta();
+        this.jugadores[1].robarCarta();
         colocarCartaJugador(reader);
-        ataqueJugador(reader);
+        //ataqueJugador(reader); resolver como jugar con la ui
         reader.close();
     }
 
     //Post: coloca la carta del jugador en el tablero
     public void colocarCartaJugador(BufferedReader reader) throws IOException {
         if(this.getTablero().hayEspacioJugador()){
-            System.out.println("Ingrese la carta que quiere jugar, del 1 al " + (this.jugador.getBaraja().size() - 1));
+            System.out.println("Ingrese la carta que quiere jugar, del 1 al " + (this.jugadores[1].getBaraja().size() - 1));
             int carta = Integer.parseInt(reader.readLine());
             System.out.println("Ingrese la posicion (1, 2 o 3)");
             int pos = Integer.parseInt(reader.readLine());
-            this.getTablero().insertarCarta(1, pos - 1, this.jugador.getBaraja().get(carta - 1));
+            this.getTablero().insertarCarta(1, pos - 1, this.jugadores[1].getBaraja().get(carta - 1));
         }
     }
 
+    /*
     //Post: Realiza el ataque del jugador, correspondientemente a la carta o a la vida de la ia
     public void ataqueJugador(BufferedReader reader) throws IOException {
         String rta = "no";
         int veces;
-        if(this.jugador.hayCartaMagiaEnBaraja()){
+        if(this.jugadores[1].hayCartaMagiaEnBaraja()){
             System.out.println("Desea jugar carta magia? (si/no)");
             rta = reader.readLine();
-            this.jugador.jugarCartaMagia();
+            this.jugadores[1].jugarCartaMagia();
         }
         if(rta.equals("si")){
             veces = 2;
@@ -108,21 +101,21 @@ public class Partida {
             if(this.tablero.hayCartaMaquina()){
                 System.out.println("A que carta atacas? (1, 2 o 3)");
                 int objetivo = Integer.parseInt(reader.readLine());
-                this.jugador.atacarCarta(this, carta - 1, objetivo - 1);
+                this.jugadores[1].atacarCarta(this, carta - 1, objetivo - 1);
             }
             else{
-                this.jugador.atacarVida(this, carta - 1);
+                this.jugadores[1].atacarVida(this, carta - 1);
             }
             veces--;
         }
-    }
+    }*/
 
 
     //Post: realiza las acciones correspondientes al turno de la IA
     public void turnoMaquina() {
-        this.maquina.robarCarta();
-        this.maquina.colocarCarta(this);
-        this.maquina.ejecutarAtaque(this);
+        this.jugadores[0].robarCarta();
+        this.jugadores[0].colocarCartaIA(this);
+        this.jugadores[0].ejecutarAtaqueIA(this);
     }
 
 }

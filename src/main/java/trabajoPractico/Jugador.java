@@ -94,4 +94,82 @@ public abstract class Jugador {
         this.vida = this.vida - danio;
     }
 
+    public void jugarCartaMagia() {
+        this.removerCartaMagia();
+    }
+
+    public void colocarCartaIA(Partida partida) {
+        for (int i = 0; i < 3; i++) {
+            if (!partida.getTablero().hayCarta(0, i)) {
+                partida.getTablero().insertarCarta(0, i, this.elegirCartaAtkIA());
+                var carta = this.elegirCartaAtkIA();
+                this.removerCartaAtk(carta.getTipo());
+                break;
+            }
+        }
+    }
+
+    public Carta elegirCartaAtkIA() {
+        if (this.hayCartaAtkEnBaraja()) {
+            for (int i = 0; i < this.getBaraja().size(); i++) {
+                if (this.getBaraja().get(i).getTipo() == TipoDeCarta.LUCHADOR) {
+                    return this.getBaraja().get(i);
+                } else if (this.getBaraja().get(i).getTipo() == TipoDeCarta.TANQUE) {
+                    return this.getBaraja().get(i);
+                } else if (this.getBaraja().get(i).getTipo() == TipoDeCarta.HECHICERO) {
+                    return this.getBaraja().get(i);
+                }
+            }
+        }
+        return null;
+    }
+
+    public void ejecutarAtaqueIA(Partida partida) {
+        var cartaActual = elegirCartaAtkIA();
+        if (this.hayCartaMagiaEnBaraja()) {
+            this.removerCartaMagia();
+            this.atacarIA(partida, cartaActual);
+            this.atacarIA(partida, cartaActual);
+        } else {
+            this.atacarIA(partida, cartaActual);
+        }
+    }
+
+    public void atacarIA(Partida partida, Carta cartaActual) {
+        if (partida.getTablero().hayCartaJugador()) {
+            atacarCartaIA(partida, cartaActual);
+        } else {
+            atacarDirectoIA(partida, cartaActual);
+        }
+    }
+
+    private void atacarCartaIA(Partida partida, Carta cartaActual) {
+        int nroCartaAAtacar = 0;
+        while (nroCartaAAtacar < 2) {
+            if (partida.getTablero().hayCarta(1, nroCartaAAtacar)) {
+                //var carta = partida.getTablero().getTablero(1, nroCartaAAtacar);
+                partida.getTablero().getTablero(1, nroCartaAAtacar).bajarDefensa(hacerDanioIA(cartaActual.getTipo()));
+            } else {
+                nroCartaAAtacar++;
+            }
+        }
+    }
+
+    //Post: Devuelve el daño en funcion de la carta
+    public int hacerDanioIA(TipoDeCarta tipo) {
+        if (tipo == TipoDeCarta.LUCHADOR) {
+            return 4;
+        } else if (tipo == TipoDeCarta.TANQUE) {
+            return 1;
+        } else if (tipo == TipoDeCarta.HECHICERO) {
+            return 6;
+        }
+        throw new RuntimeException("Error al hacer danio");
+    }
+
+    //Post: Ataca directo al jugador humano
+    public void atacarDirectoIA(Partida partida, Carta cartaActual) {
+        partida.getJugadorHumano().bajarVida(hacerDanioIA(cartaActual.getTipo()));
+    }
+
 }

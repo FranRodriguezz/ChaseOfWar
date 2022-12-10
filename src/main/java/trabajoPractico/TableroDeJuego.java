@@ -81,4 +81,16 @@ public class TableroDeJuego {
             this.tablero[fila][col] = null;
         }
     }
+
+    //
+    public int primerColLibreUsuario(){
+        int col = -1;
+        for(int i = 0; i < 3; i++){
+            if(!this.hayCarta(1, i)){
+                col = i;
+                break;
+            }
+        }
+        return col;
+    }
 }

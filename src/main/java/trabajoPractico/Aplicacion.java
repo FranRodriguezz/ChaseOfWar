@@ -1,15 +1,14 @@
 package trabajoPractico;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -28,23 +27,12 @@ public class Aplicacion extends Application {
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Chase of war");
         VBox vbox = new VBox();
-        vbox.setSpacing(50);
+        vbox.setSpacing(35);
         vbox.setAlignment(Pos.CENTER);
         Partida partida = new Partida();
-        var btn = new Button("Finalizar Turno");
-        crearUI(partida, vbox, btn);
-        int turno = 0;
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    partida.jugar(turno);
-                    crearUI(partida, vbox, btn);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
+
+
+        crearUI(partida, vbox);
         Scene scene = new Scene(vbox, 1300, 700);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -52,11 +40,53 @@ public class Aplicacion extends Application {
 
 
 
-    private void crearUI(Partida partida, VBox vbox, Button btn) throws FileNotFoundException {
-        //vida enemiga:
-        var vidaIA = new ProgressBar(partida.getJugadorIA().getVida());
-        vbox.getChildren().add(vidaIA);
+    private void crearUI(Partida partida, VBox vbox) throws FileNotFoundException {
 
+        UIenemiga(partida, vbox);
+
+        UIusuario(partida, vbox);
+
+
+
+
+    }
+
+    private void UIusuario(Partida partida, VBox vbox) throws FileNotFoundException {
+        //tablero user:
+        HBox tableroUsuario = new HBox(3);
+        colocarTablero(partida, tableroUsuario, 1);
+        vbox.getChildren().add(tableroUsuario);
+
+        //botones ubicacion:
+        HBox botonesUbicacion = new HBox(3);
+        botonesUbicacion.setAlignment(Pos.CENTER);
+        botonesUbicacion.setSpacing(125);
+        Button btnCol1 = new Button("Col1");
+        Button btnCol2 = new Button("Col2");
+        Button btnCol3 = new Button("Col3");
+        botonesUbicacion.getChildren().add(btnCol1);
+        botonesUbicacion.getChildren().add(btnCol2);
+        botonesUbicacion.getChildren().add(btnCol3);
+        vbox.getChildren().add(botonesUbicacion);
+
+        //cartas usuario:
+        HBox hboxJugador = new HBox(partida.getJugadorHumano().getBaraja().size());
+        colocarCartasUsuario(partida, hboxJugador);
+        vbox.getChildren().add(hboxJugador);
+
+        //botones cartas:
+        HBox botonesCartas = new HBox(partida.getJugadorHumano().getBaraja().size());
+        botonesCartas.setAlignment(Pos.CENTER);
+        botonesCartas.setSpacing(60);
+        for(int i = 0; i < partida.getJugadorHumano().getBaraja().size(); i++){
+            Button btn = new Button(partida.getJugadorHumano().getBaraja().get(i).getTipo().toString());
+            botonesCartas.getChildren().add(btn);
+            //Aca iria la accion de seleccionar carta con el boton?
+        }
+        vbox.getChildren().add(botonesCartas);
+    }
+
+    private void UIenemiga(Partida partida, VBox vbox) throws FileNotFoundException {
         //cartas enemigas:
         HBox hboxIA = new HBox(partida.getJugadorIA().getBaraja().size());
         colocarCartasEnemigas(partida, hboxIA);
@@ -66,25 +96,6 @@ public class Aplicacion extends Application {
         HBox tableroIA = new HBox(3);
         colocarTablero(partida, tableroIA, 0);
         vbox.getChildren().add(tableroIA);
-
-        //tablero user:
-        HBox tableroUsuario = new HBox(3);
-        colocarTablero(partida, tableroUsuario, 1);
-        vbox.getChildren().add(tableroUsuario);
-
-        //cartas enemigas:
-        HBox hboxJugador = new HBox(partida.getJugadorHumano().getBaraja().size());
-        colocarCartasUsuario(partida, hboxJugador);
-        vbox.getChildren().add(hboxJugador);
-
-        //vida user:
-        HBox vidaUser = new HBox(2);
-        vidaUser.setAlignment(Pos.CENTER);
-        vidaUser.setSpacing(20);
-        var vidaUsuario = new ProgressBar(partida.getJugadorHumano().getVida());
-        vidaUser.getChildren().add(vidaUsuario);
-        vidaUser.getChildren().add(btn);
-        vbox.getChildren().add(vidaUser);
     }
 
 
@@ -119,6 +130,7 @@ public class Aplicacion extends Application {
             hBox.setSpacing(100);
             hBox.getChildren().add(label);
         }
+
     }
 
     private Image cargarImagen(Partida partida, int filaTarget, int col) throws FileNotFoundException {
@@ -137,6 +149,15 @@ public class Aplicacion extends Application {
     private void colocarCartasUsuario(Partida partida, HBox hbox) throws FileNotFoundException {
         for(int i = 0; i < partida.getJugadorHumano().getBaraja().size(); i++){
             var label = asignarCartaUsuario(partida.getJugadorHumano().getBaraja().get(i).getTipo());
+            int finalI = i;
+            label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    partida.getTablero().insertarCarta(1, 1,
+                            partida.getJugadorHumano().getBaraja().remove(finalI));
+                    partida.getJugadorHumano().removerCartaAtk(partida.getJugadorHumano().getBaraja().get(finalI).getTipo());
+                }
+            });
             hbox.setAlignment(Pos.CENTER);
             hbox.setSpacing(60);
             hbox.getChildren().add(label);
