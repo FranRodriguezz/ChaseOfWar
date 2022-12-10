@@ -1,6 +1,7 @@
 package trabajoPractico;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -30,8 +31,6 @@ public class Aplicacion extends Application {
         vbox.setSpacing(35);
         vbox.setAlignment(Pos.CENTER);
         Partida partida = new Partida();
-
-
         crearUI(partida, vbox);
         Scene scene = new Scene(vbox, 1300, 700);
         primaryStage.setScene(scene);
@@ -41,14 +40,8 @@ public class Aplicacion extends Application {
 
 
     private void crearUI(Partida partida, VBox vbox) throws FileNotFoundException {
-
         UIenemiga(partida, vbox);
-
         UIusuario(partida, vbox);
-
-
-
-
     }
 
     private void UIusuario(Partida partida, VBox vbox) throws FileNotFoundException {
@@ -78,11 +71,40 @@ public class Aplicacion extends Application {
         HBox botonesCartas = new HBox(partida.getJugadorHumano().getBaraja().size());
         botonesCartas.setAlignment(Pos.CENTER);
         botonesCartas.setSpacing(60);
+        final Carta[] carta = new Carta[1];
         for(int i = 0; i < partida.getJugadorHumano().getBaraja().size(); i++){
             Button btn = new Button(partida.getJugadorHumano().getBaraja().get(i).getTipo().toString());
             botonesCartas.getChildren().add(btn);
-            //Aca iria la accion de seleccionar carta con el boton?
+            int finalI = i;
+            btn.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    carta[0] = new Carta(partida.getJugadorHumano().getBaraja().get(finalI).getTipo());
+                    partida.getJugadorHumano().removerCartaAtk(partida.getJugadorHumano().getBaraja().get(finalI).getTipo());
+                }
+            });
         }
+
+        //acciones botones colocar:
+        btnCol1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                partida.getTablero().insertarCarta(1, 0, carta[0]);
+            }
+        });
+        btnCol2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                partida.getTablero().insertarCarta(1, 0, carta[0]);
+            }
+        });
+        btnCol3.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                partida.getTablero().insertarCarta(1, 0, carta[0]);
+            }
+        });
+
         vbox.getChildren().add(botonesCartas);
     }
 
