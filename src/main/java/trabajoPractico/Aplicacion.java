@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -40,11 +41,45 @@ public class Aplicacion extends Application {
 
 
     private void crearUI(Partida partida, VBox vbox) throws FileNotFoundException {
+
+        //Boton atacar vida, y vida enemiga:
+        HBox vidaIA = new HBox(2);
+        ProgressBar barraVidaIA = new ProgressBar(partida.getJugadorIA().getVida());
+        Button btnAtk = new Button("Atacar");
+        vidaIA.setAlignment(Pos.CENTER);
+        vidaIA.setSpacing(50);
+        vidaIA.getChildren().addAll(barraVidaIA, btnAtk);
+        vbox.getChildren().add(vidaIA);
+
         UIenemiga(partida, vbox);
+
+        //Botones atk:
+        HBox botonesAtk = new HBox(3);
+        botonesAtk.setAlignment(Pos.CENTER);
+        botonesAtk.setSpacing(115);
+        Button btnAtk1 = new Button("Atacar");
+        Button btnAtk2 = new Button("Atacar");
+        Button btnAtk3 = new Button("Atacar");
+        botonesAtk.getChildren().add(btnAtk1);
+        botonesAtk.getChildren().add(btnAtk2);
+        botonesAtk.getChildren().add(btnAtk3);
+        vbox.getChildren().add(botonesAtk);
+
+
         UIusuario(partida, vbox);
+
+        //Boton sig turno y vida usuario:
+        HBox vida = new HBox(2);
+        ProgressBar barraVida = new ProgressBar(partida.getJugadorHumano().getVida());
+        Button btnTurno = new Button("Sig Turno");
+        vida.setAlignment(Pos.CENTER);
+        vida.setSpacing(50);
+        vida.getChildren().addAll(barraVida, btnTurno);
+        vbox.getChildren().add(vida);
     }
 
     private void UIusuario(Partida partida, VBox vbox) throws FileNotFoundException {
+
         //tablero user:
         HBox tableroUsuario = new HBox(3);
         colocarTablero(partida, tableroUsuario, 1);
