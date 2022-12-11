@@ -29,10 +29,5 @@ public class JugadorHumano extends Jugador{
         partida.getTablero().getTablero(0,colEnemiga).bajarDefensa(danio);
     }
 
-    //Pre: la columna debe ser de 0 a 2
-    //Post: baja la vida si se ataca directo
-    public void atacarVida(Partida partida, int colCarta){
-        int danio = partida.getTablero().getTablero(1,colCarta).getAtk();
-        partida.getJugadorIA().bajarVida(danio);
-    }
+
 }

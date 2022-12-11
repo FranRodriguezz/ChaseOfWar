@@ -25,6 +25,10 @@ public class TableroDeJuegoTest {
         var tablero = new TableroDeJuego();
         boolean hay = tablero.hayCartaJugador();
         assertFalse(hay);
+        var carta = new Carta(TipoDeCarta.HECHICERO);
+        tablero.insertarCarta(1,2,carta);
+        hay = tablero.hayCartaJugador();
+        assertTrue(hay);
     }
 
 }

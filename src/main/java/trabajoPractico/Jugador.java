@@ -172,4 +172,12 @@ public abstract class Jugador {
         partida.getJugadorHumano().bajarVida(hacerDanioIA(cartaActual.getTipo()));
     }
 
+
+    //Pre: la columna debe ser de 0 a 2
+    //Post: baja la vida si se ataca directo
+    public void atacarVida(Partida partida, int colCarta){
+        int danio = partida.getTablero().getTablero(1,colCarta).getAtk();
+        partida.getJugadorIA().bajarVida(danio);
+    }
+
 }
