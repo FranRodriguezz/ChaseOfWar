@@ -1,16 +1,13 @@
 package trabajoPractico;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -45,7 +42,7 @@ public class Aplicacion extends Application {
 
         //Boton atacar vida, y vida enemiga:
         HBox vidaIA = new HBox(2);
-        ProgressBar barraVidaIA = new ProgressBar(partida.getJugadorIA().getVida());
+        Label barraVidaIA = new Label("Vida IA: " + partida.getJugadorIA().getVida());
         Button btnAtk = new Button("Atacar");
         vidaIA.setAlignment(Pos.CENTER);
         vidaIA.setSpacing(50);
@@ -65,23 +62,43 @@ public class Aplicacion extends Application {
         botonesAtk.getChildren().add(btnAtk2);
         botonesAtk.getChildren().add(btnAtk3);
         vbox.getChildren().add(botonesAtk);
+        final int[] danio = new int[1];
 
+        UIusuario(partida, vbox, danio);
 
-        UIusuario(partida, vbox);
+        btnAtk1.setOnAction(actionEvent -> {
+            if(partida.getTablero().getTablero(0, 0).perdioDuelo(danio[0])){
+                partida.getTablero().eliminarCarta(0,0);
+            }
+        });
 
-        btnAtk1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
+        btnAtk2.setOnAction(actionEvent -> {
+            if(partida.getTablero().getTablero(0, 1).perdioDuelo(danio[0])){
+                partida.getTablero().eliminarCarta(0,1);
+            }
+        });
 
+        btnAtk3.setOnAction(actionEvent -> {
+            if(partida.getTablero().getTablero(0, 2).perdioDuelo(danio[0])){
+                partida.getTablero().eliminarCarta(0,2);
+            }
+        });
+
+        btnAtk.setOnAction(actionEvent -> {
+            partida.getJugadorIA().bajarVida(danio[0]);
+            vbox.getChildren().clear();
+            try {
+                crearUI(partida, vbox);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
             }
         });
     }
 
-    private void UIusuario(Partida partida, VBox vbox) throws FileNotFoundException {
+    private void UIusuario(Partida partida, VBox vbox, int[] danio) throws FileNotFoundException {
 
         //tablero user:
         HBox tableroUsuario = new HBox(3);
-        final int[] danio = new int[1];
         colocarTablero(partida, tableroUsuario, 1, danio);
         vbox.getChildren().add(tableroUsuario);
 
@@ -110,7 +127,7 @@ public class Aplicacion extends Application {
 
         //Boton sig turno y vida usuario:
         HBox vida = new HBox(2);
-        ProgressBar barraVida = new ProgressBar(partida.getJugadorHumano().getVida());
+        Label barraVida = new Label("Vida Jugador: " + partida.getJugadorHumano().getVida());
         Button btnTurno = new Button("Sig Turno");
         vida.setAlignment(Pos.CENTER);
         vida.setSpacing(50);
@@ -118,107 +135,54 @@ public class Aplicacion extends Application {
         vbox.getChildren().add(vida);
 
         final Carta[] carta = new Carta[1];
-        boolean magia = false;
+        final boolean[] magia = new boolean[1];
         colocarBotonesCartas(partida, botonesCartas, carta, magia);
 
         //acciones botones colocar:
-        btnCol1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                partida.getTablero().insertarCarta(1, 0, carta[0]);
-                vbox.getChildren().removeAll(tableroUsuario);
-                vbox.getChildren().removeAll(botonesUbicacion);
-                vbox.getChildren().removeAll(hboxJugador);
-                vbox.getChildren().removeAll(botonesCartas);
-                vbox.getChildren().removeAll(vida);
-                try {
-                    tableroUsuario.getChildren().remove(0, 3);
-                    colocarTablero(partida, tableroUsuario, 1, danio);
-                    hboxJugador.getChildren().remove(0, partida.getJugadorHumano().getBaraja().size());
-                    colocarCartasUsuario(partida, hboxJugador);
-                    botonesCartas.getChildren().remove(0, partida.getJugadorHumano().getBaraja().size());
-                    colocarBotonesCartas(partida, botonesCartas, carta, magia);
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-                vbox.getChildren().add(tableroUsuario);
-                vbox.getChildren().add(botonesUbicacion);
-                vbox.getChildren().add(hboxJugador);
-                vbox.getChildren().add(botonesCartas);
-                vbox.getChildren().add(vida);
+        btnCol1.setOnAction(actionEvent -> {
+            partida.getTablero().insertarCarta(1, 0, carta[0]);
+            vbox.getChildren().clear();
+            try {
+                crearUI(partida, vbox);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
             }
         });
-        btnCol2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                partida.getTablero().insertarCarta(1, 1, carta[0]);
-                vbox.getChildren().removeAll(tableroUsuario);
-                vbox.getChildren().removeAll(botonesUbicacion);
-                vbox.getChildren().removeAll(hboxJugador);
-                vbox.getChildren().removeAll(botonesCartas);
-                vbox.getChildren().removeAll(vida);
-                try {
-                    tableroUsuario.getChildren().remove(0, 3);
-                    colocarTablero(partida, tableroUsuario, 1, danio);
-                    hboxJugador.getChildren().remove(0, partida.getJugadorHumano().getBaraja().size());
-                    colocarCartasUsuario(partida, hboxJugador);
-                    botonesCartas.getChildren().remove(0, partida.getJugadorHumano().getBaraja().size());
-                    colocarBotonesCartas(partida, botonesCartas, carta, magia);
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-                vbox.getChildren().add(tableroUsuario);
-                vbox.getChildren().add(botonesUbicacion);
-                vbox.getChildren().add(hboxJugador);
-                vbox.getChildren().add(botonesCartas);
-                vbox.getChildren().add(vida);
+        btnCol2.setOnAction(actionEvent -> {
+            partida.getTablero().insertarCarta(1, 1, carta[0]);
+            vbox.getChildren().clear();
+            try {
+                crearUI(partida, vbox);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
             }
         });
-        btnCol3.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                partida.getTablero().insertarCarta(1, 2, carta[0]);
-                vbox.getChildren().removeAll(tableroUsuario);
-                vbox.getChildren().removeAll(botonesUbicacion);
-                vbox.getChildren().removeAll(hboxJugador);
-                vbox.getChildren().removeAll(botonesCartas);
-                vbox.getChildren().removeAll(vida);
-                try {
-                    tableroUsuario.getChildren().remove(0, 3);
-                    colocarTablero(partida, tableroUsuario, 1, danio);
-                    hboxJugador.getChildren().remove(0, partida.getJugadorHumano().getBaraja().size());
-                    colocarCartasUsuario(partida, hboxJugador);
-                    botonesCartas.getChildren().remove(0, partida.getJugadorHumano().getBaraja().size());
-                    colocarBotonesCartas(partida, botonesCartas, carta, magia);
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-                vbox.getChildren().add(tableroUsuario);
-                vbox.getChildren().add(botonesUbicacion);
-                vbox.getChildren().add(hboxJugador);
-                vbox.getChildren().add(botonesCartas);
-                vbox.getChildren().add(vida);
+        btnCol3.setOnAction(actionEvent -> {
+            partida.getTablero().insertarCarta(1, 2, carta[0]);
+            vbox.getChildren().clear();
+            try {
+                crearUI(partida, vbox);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
             }
         });
     }
 
 
-    private void colocarBotonesCartas(Partida partida, HBox botonesCartas, Carta[] carta, boolean magia){
+    private void colocarBotonesCartas(Partida partida, HBox botonesCartas, Carta[] carta, boolean[] magia){
         for(int i = 0; i < partida.getJugadorHumano().getBaraja().size(); i++){
             Button btn = new Button(partida.getJugadorHumano().getBaraja().get(i).getTipo().toString());
             botonesCartas.getChildren().add(btn);
             int finalI = i;
-            btn.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    if(partida.getJugadorHumano().getBaraja().get(finalI).getTipo() == TipoDeCarta.MAGIA){
-                        boolean magia = true;
-                        partida.getJugadorHumano().removerCartaMagia();
-                    }
-                    else{
-                        carta[0] = new Carta(partida.getJugadorHumano().getBaraja().get(finalI).getTipo());
-                        partida.getJugadorHumano().removerCartaAtk(partida.getJugadorHumano().getBaraja().get(finalI).getTipo());
-                    }
+            btn.setOnAction(actionEvent -> {
+                if(partida.getJugadorHumano().getBaraja().get(finalI).getTipo() == TipoDeCarta.MAGIA){
+                    magia[0] = true;
+                    partida.getJugadorHumano().removerCartaMagia();
+                }
+                else{
+                    magia[0] = false;
+                    carta[0] = new Carta(partida.getJugadorHumano().getBaraja().get(finalI).getTipo());
+                    partida.getJugadorHumano().removerCartaAtk(partida.getJugadorHumano().getBaraja().get(finalI).getTipo());
                 }
             });
         }
@@ -265,12 +229,7 @@ public class Aplicacion extends Application {
             imageView.setFitWidth(60);
             var group = new Group(imageView);
             int finalI = i;
-            group.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    danio[0] = partida.getTablero().getTablero(filaTarget, finalI).getAtk();
-                }
-            });
+            group.setOnMouseClicked(mouseEvent -> danio[0] = partida.getTablero().getTablero(filaTarget, finalI).getAtk());
             hBox.setAlignment(Pos.CENTER);
             hBox.setSpacing(100);
             hBox.getChildren().add(group);
@@ -294,13 +253,10 @@ public class Aplicacion extends Application {
         for(int i = 0; i < partida.getJugadorHumano().getBaraja().size(); i++){
             var group = asignarCartaUsuario(partida.getJugadorHumano().getBaraja().get(i).getTipo());
             int finalI = i;
-            group.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    partida.getTablero().insertarCarta(1, 1,
-                            partida.getJugadorHumano().getBaraja().remove(finalI));
-                    partida.getJugadorHumano().removerCartaAtk(partida.getJugadorHumano().getBaraja().get(finalI).getTipo());
-                }
+            group.setOnMouseClicked(mouseEvent -> {
+                partida.getTablero().insertarCarta(1, 1,
+                        partida.getJugadorHumano().getBaraja().remove(finalI));
+                partida.getJugadorHumano().removerCartaAtk(partida.getJugadorHumano().getBaraja().get(finalI).getTipo());
             });
             hbox.setAlignment(Pos.CENTER);
             hbox.setSpacing(60);
