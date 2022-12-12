@@ -6,9 +6,9 @@ public enum TipoDeCarta {
     HECHICERO(6,1),
     MAGIA(0,0);
 
-    private int ataque;
+    private final int ataque;
 
-    private int defensa;
+    private final int defensa;
 
     //Pre:
     //Post: Crea un tipo de carta con sus datos de atk y def
@@ -27,17 +27,9 @@ public enum TipoDeCarta {
         return this.ataque;
     }
 
-    //Post:
-    public void setDefensa(int nuevaDef){
-        this.defensa = nuevaDef;
-    }
-
     //Post: devuelve true si la carta es de ataque
     public boolean esAtaque(){
-        boolean es = false;
-        if(this == TANQUE || this == LUCHADOR || this == HECHICERO)
-            es = true;
-        return es;
+        return this == TANQUE || this == LUCHADOR || this == HECHICERO;
     }
 
 }

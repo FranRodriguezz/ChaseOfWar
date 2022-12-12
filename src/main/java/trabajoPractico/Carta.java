@@ -3,7 +3,7 @@ package trabajoPractico;
 
 public class Carta {
 
-    private TipoDeCarta tipo;//Luchador, Tanque, Hechicero , magia(x def 0atk 0def)
+    private final TipoDeCarta tipo;//Luchador, Tanque, Hechicero , magia(x def 0atk 0def)
 
 
     //Pre: El tipo de la carta debe ser Luchador, Tanque, Hechicero o Magia
@@ -26,10 +26,10 @@ public class Carta {
     }
 
 
-    //Pre: -
-    //Post: Baja la defensa de la carta, si queda en 0 o menor la carta se destruye
-    public void bajarDefensa(int danio){
-        this.getTipo().setDefensa(this.getDefensa() - danio);
+    //Pre: Recibe el danio de la carta que esta atacando a esta
+    //Post: Si la carta atacante puede destruirla devuelve true, caso contrario false
+    public boolean perdioDuelo(int danio){
+        return danio >= this.getDefensa();
     }
 
     //Pre: La carta debe haber sido creada

@@ -26,7 +26,9 @@ public class JugadorHumano extends Jugador{
     //Post: ataca la carta enemiga
     public void atacarCarta(Partida partida, int colCarta, int colEnemiga){
         int danio = partida.getTablero().getTablero(1,colCarta).getAtk();
-        partida.getTablero().getTablero(0,colEnemiga).bajarDefensa(danio);
+        if(partida.getTablero().getTablero(0,colEnemiga).perdioDuelo(danio)){
+            partida.getTablero().eliminarCarta(0, colEnemiga);
+        }
     }
 
 

@@ -62,7 +62,7 @@ public class JugadorIA extends Jugador {
         while (nroCartaAAtacar < 2) {
             if (partida.getTablero().hayCarta(1, nroCartaAAtacar)) {
                 //var carta = partida.getTablero().getTablero(1, nroCartaAAtacar);
-                partida.getTablero().getTablero(1, nroCartaAAtacar).bajarDefensa(hacerDanio(cartaActual.getTipo()));
+                //partida.getTablero().getTablero(1, nroCartaAAtacar).bajarDefensa(hacerDanio(cartaActual.getTipo()));
             } else {
                 nroCartaAAtacar++;
             }

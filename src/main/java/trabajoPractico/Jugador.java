@@ -6,20 +6,20 @@ public abstract class Jugador {
     private int vida;
     private MazoDeCartas mazo;
     private ArrayList<Carta> baraja;
-    private final int cartasEnMano = 5;
 
     //Pre:
     //Post: Constructor de un jugador para usar en las clases hijas
     public Jugador() {
         this.vida = 20;
         this.mazo = new MazoDeCartas();
-        this.baraja = new ArrayList<Carta>();
+        this.baraja = new ArrayList<>();
         this.cargarBarajaInicial();
     }
 
     //Pre: el mazo debe haber sido creado previamente
     //Post: Carga la baraja de 5 cartas inicial
     private void cargarBarajaInicial(){
+        int cartasEnMano = 5;
         for(int i = 0; i < cartasEnMano; i++){
             this.baraja.add(this.mazo.mazo.pop());
         }
@@ -148,7 +148,10 @@ public abstract class Jugador {
         while (nroCartaAAtacar < 2) {
             if (partida.getTablero().hayCarta(1, nroCartaAAtacar)) {
                 //var carta = partida.getTablero().getTablero(1, nroCartaAAtacar);
-                partida.getTablero().getTablero(1, nroCartaAAtacar).bajarDefensa(hacerDanioIA(cartaActual.getTipo()));
+                if(partida.getTablero().getTablero(1, nroCartaAAtacar).perdioDuelo(hacerDanioIA(cartaActual.getTipo()))){
+                    partida.getTablero().eliminarCarta(1, nroCartaAAtacar);
+                    nroCartaAAtacar = 2;
+                }
             } else {
                 nroCartaAAtacar++;
             }
