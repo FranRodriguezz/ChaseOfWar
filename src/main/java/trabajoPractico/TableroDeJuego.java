@@ -2,7 +2,6 @@ package trabajoPractico;
 
 public class TableroDeJuego {
     private Carta [][] tablero;
-    private final int filaIA = 0;
     private final int filaHumano = 1;
     private final int slotCartas = 3;
 
@@ -17,6 +16,7 @@ public class TableroDeJuego {
     public boolean hayEspacioIA(){
         boolean hay = false;
         for(int i = 0; i < slotCartas; i++){
+            int filaIA = 0;
             if(!this.hayCarta(filaIA, i)){
                 hay = true;
             }
@@ -48,16 +48,6 @@ public class TableroDeJuego {
         return hay;
     }
 
-    //Post: Devuelve true si el jugador IA tiene una carta en juego
-    public boolean hayCartaMaquina(){
-        boolean hay = false;
-        for(int i = 0; i < slotCartas; i++){
-            if(this.hayCarta(filaIA, i)){
-                hay = true;
-            }
-        }
-        return hay;
-    }
 
     //Post: Devuelve true si hay espacio para que el jugador coloque una carta
     public boolean hayEspacioJugador(){
@@ -77,20 +67,7 @@ public class TableroDeJuego {
 
     //
     public void eliminarCarta(int fila, int col){
-        if (this.tablero[fila][col].getDefensa() <= 0){
-            this.tablero[fila][col] = null;
-        }
+        this.tablero[fila][col] = null;
     }
 
-    //
-    public int primerColLibreUsuario(){
-        int col = -1;
-        for(int i = 0; i < 3; i++){
-            if(!this.hayCarta(1, i)){
-                col = i;
-                break;
-            }
-        }
-        return col;
-    }
 }

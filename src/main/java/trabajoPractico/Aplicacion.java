@@ -30,13 +30,10 @@ public class Aplicacion extends Application {
         vbox.setAlignment(Pos.CENTER);
         Partida partida = new Partida();
         crearUI(partida, vbox);
-
         Scene scene = new Scene(vbox, 1300, 700);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-
 
     private void crearUI(Partida partida, VBox vbox) throws FileNotFoundException {
 
@@ -69,18 +66,36 @@ public class Aplicacion extends Application {
         btnAtk1.setOnAction(actionEvent -> {
             if(partida.getTablero().getTablero(0, 0).perdioDuelo(danio[0])){
                 partida.getTablero().eliminarCarta(0,0);
+                vbox.getChildren().clear();
+                try {
+                    crearUI(partida, vbox);
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
         btnAtk2.setOnAction(actionEvent -> {
             if(partida.getTablero().getTablero(0, 1).perdioDuelo(danio[0])){
                 partida.getTablero().eliminarCarta(0,1);
+                vbox.getChildren().clear();
+                try {
+                    crearUI(partida, vbox);
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
         btnAtk3.setOnAction(actionEvent -> {
             if(partida.getTablero().getTablero(0, 2).perdioDuelo(danio[0])){
                 partida.getTablero().eliminarCarta(0,2);
+                vbox.getChildren().clear();
+                try {
+                    crearUI(partida, vbox);
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -159,6 +174,19 @@ public class Aplicacion extends Application {
         });
         btnCol3.setOnAction(actionEvent -> {
             partida.getTablero().insertarCarta(1, 2, carta[0]);
+            vbox.getChildren().clear();
+            try {
+                crearUI(partida, vbox);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        btnTurno.setOnAction(actionEvent -> {
+            partida.getJugadorIA().robarCarta();
+            partida.getJugadorIA().colocarCartaIA(partida);
+            partida.getJugadorIA().ejecutarAtaqueIA(partida);
+            partida.getJugadorHumano().robarCarta();
             vbox.getChildren().clear();
             try {
                 crearUI(partida, vbox);

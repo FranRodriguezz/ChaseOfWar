@@ -5,7 +5,6 @@ import java.util.Collections;
 
 public class MazoDeCartas {
 
-    private final int cantidadCartasPorTipo = 10;
     public Stack<Carta> mazo = new Stack<>();
 
     //Pre: -
@@ -18,6 +17,7 @@ public class MazoDeCartas {
     //Pre: -
     //Post: Carga las unidades en el mazo, 10 cartas por unidad
     private void cargarUnidades(){
+        int cantidadCartasPorTipo = 10;
         for(int i = 0; i < cantidadCartasPorTipo; i++){
             this.mazo.push(new Carta(TipoDeCarta.LUCHADOR));
             this.mazo.push(new Carta(TipoDeCarta.TANQUE));

@@ -13,14 +13,12 @@ public class CartaTest {
         assertEquals(defensa, 6);
     }
 
-    // No se pq la defensa queda en 2
     @Test
     public void getDefensaLuchador() {
         var carta = new Carta(TipoDeCarta.LUCHADOR);
         int defensa = carta.getDefensa();
         assertEquals(defensa, 3);
     }
-
 
     @Test
     public void getDefensaHechicero() {
