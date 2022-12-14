@@ -244,10 +244,10 @@ public class Aplicacion extends Application {
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(80);
             imageView.setFitWidth(60);
-            var label = new Group(imageView);
+            var group = new Group(imageView);
             hboxIA.setAlignment(Pos.CENTER);
             hboxIA.setSpacing(60);
-            hboxIA.getChildren().add(label);
+            hboxIA.getChildren().add(group);
         }
     }
 
