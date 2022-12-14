@@ -28,4 +28,12 @@ public class JugadorHumanoTest {
         partida.getJugadorHumano().atacarVida(partida, 0);
         assertEquals(partida.getJugadorIA().getVida(), 20 - carta.getAtk());
     }
+
+    @Test
+    public void hayCartaMagia() {
+        var jugador = new JugadorHumano();
+        jugador.getBaraja().add(new Carta(TipoDeCarta.MAGIA));
+        assertTrue(jugador.hayCartaMagiaEnBaraja());
+    }
+
 }

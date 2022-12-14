@@ -20,5 +20,4 @@ public class PartidaTest {
         assertFalse(partida.finalizada());
     }
 
-    //Falta terminar para mas tests
 }

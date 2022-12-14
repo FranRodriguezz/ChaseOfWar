@@ -47,4 +47,22 @@ public class CartaTest {
         int atk = carta.getAtk();
         assertEquals(atk, 6);
     }
+
+    @Test
+    public void perdioDueloTest() {
+        var carta = new Carta(TipoDeCarta.HECHICERO);
+        var carta2 = new Carta(TipoDeCarta.LUCHADOR);
+        int danio = carta2.getAtk();
+        boolean perdio = carta.perdioDuelo(danio);
+        assertTrue(perdio);
+    }
+
+    @Test
+    public void noPerdioDueloTest() {
+        var carta = new Carta(TipoDeCarta.TANQUE);
+        var carta2 = new Carta(TipoDeCarta.LUCHADOR);
+        int danio = carta2.getAtk();
+        boolean perdio = carta.perdioDuelo(danio);
+        assertFalse(perdio);
+    }
 }

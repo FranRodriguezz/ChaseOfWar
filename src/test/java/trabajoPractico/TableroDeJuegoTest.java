@@ -31,4 +31,18 @@ public class TableroDeJuegoTest {
         assertTrue(hay);
     }
 
+    @Test
+    public void insertarCarta() {
+        var tablero = new TableroDeJuego();
+        tablero.insertarCarta(0,0, new Carta(TipoDeCarta.LUCHADOR));
+        assertEquals(tablero.getTablero(0,0).getTipo(), TipoDeCarta.LUCHADOR);
+    }
+
+    @Test
+    public void eliminarCarta() {
+        var tablero = new TableroDeJuego();
+        tablero.insertarCarta(0,0, new Carta(TipoDeCarta.LUCHADOR));
+        tablero.eliminarCarta(0,0);
+        assertNull(tablero.getTablero(0, 0));
+    }
 }
