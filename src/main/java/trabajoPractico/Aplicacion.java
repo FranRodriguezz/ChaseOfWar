@@ -35,6 +35,7 @@ public class Aplicacion extends Application {
         primaryStage.show();
     }
 
+    //Crea la UI completa del juego y funciones de los botones de ataque
     private void crearUI(Partida partida, VBox vbox) throws FileNotFoundException {
 
         if(partida.finalizada()){
@@ -117,6 +118,7 @@ public class Aplicacion extends Application {
         });
     }
 
+    //Crea la UI del usuario completa y le da funcionalidad a los botones de colocar cartas y de Cambiar turno
     private void UIusuario(Partida partida, VBox vbox, int[] danio) throws FileNotFoundException {
 
         //tablero user:
@@ -202,7 +204,7 @@ public class Aplicacion extends Application {
         });
     }
 
-
+    //Coloca los botones de las cartas y les da uso
     private void colocarBotonesCartas(Partida partida, HBox botonesCartas, Carta[] carta){
         for(int i = 0; i < partida.getJugadorHumano().getBaraja().size(); i++){
             Button btn = new Button(partida.getJugadorHumano().getBaraja().get(i).getTipo().toString());
@@ -220,6 +222,7 @@ public class Aplicacion extends Application {
         }
     }
 
+    //Crea la Ui enemiga
     private void UIenemiga(Partida partida, VBox vbox) throws FileNotFoundException {
         //cartas enemigas:
         HBox hboxIA = new HBox(partida.getJugadorIA().getBaraja().size());
@@ -234,6 +237,7 @@ public class Aplicacion extends Application {
     }
 
 
+    //Coloca las cartas del enemigo(se ve el reverso nada mas)
     private void colocarCartasEnemigas(Partida partida, HBox hboxIA) throws FileNotFoundException {
         Image image = new Image(new FileInputStream("src/main/resources/Reverso.jpg"));
         for(int i = 0; i < partida.getJugadorIA().getBaraja().size(); i++){
@@ -248,6 +252,7 @@ public class Aplicacion extends Application {
     }
 
 
+    //Coloca el tablero de algun jugador segun el nro de fila (0 o 1)
     private void colocarTablero(Partida partida, HBox hBox, int filaTarget, int[] danio) throws FileNotFoundException {
         Image image;
         for(int i = 0; i < 3; i++){
@@ -269,6 +274,7 @@ public class Aplicacion extends Application {
         }
     }
 
+    //Carga la imagen de las cartas del tablero
     private Image cargarImagen(Partida partida, int filaTarget, int col) throws FileNotFoundException {
         Image image = null;
         switch (partida.getTablero().getTablero(filaTarget, col).getTipo()){
@@ -282,6 +288,7 @@ public class Aplicacion extends Application {
         return image;
     }
 
+    //Coloca las cartas de la baraja del usuario
     private void colocarCartasUsuario(Partida partida, HBox hbox) throws FileNotFoundException {
         for(int i = 0; i < partida.getJugadorHumano().getBaraja().size(); i++){
             var group = asignarCartaUsuario(partida.getJugadorHumano().getBaraja().get(i).getTipo());
@@ -291,6 +298,7 @@ public class Aplicacion extends Application {
         }
     }
 
+    //Asigna imagenes a la baraja del usuario
     private Group asignarCartaUsuario(TipoDeCarta tipo) throws FileNotFoundException {
         Image image = null;
         Group root;
