@@ -101,8 +101,8 @@ public abstract class Jugador {
     public void colocarCartaIA(Partida partida) {
         for (int i = 0; i < 3; i++) {
             if (!partida.getTablero().hayCarta(0, i)) {
-                partida.getTablero().insertarCarta(0, i, this.elegirCartaAtkIA());
                 var carta = this.elegirCartaAtkIA();
+                partida.getTablero().insertarCarta(0, i, carta);
                 this.removerCartaAtk(carta.getTipo());
                 break;
             }
