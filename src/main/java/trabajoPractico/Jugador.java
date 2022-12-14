@@ -159,14 +159,7 @@ public abstract class Jugador {
 
     //Post: Devuelve el daño en funcion de la carta
     public int hacerDanioIA(TipoDeCarta tipo) {
-        if (tipo == TipoDeCarta.LUCHADOR) {
-            return 4;
-        } else if (tipo == TipoDeCarta.TANQUE) {
-            return 1;
-        } else if (tipo == TipoDeCarta.HECHICERO) {
-            return 6;
-        }
-        throw new RuntimeException("Error al hacer danio");
+        return tipo.getAtaque();
     }
 
     //Post: Ataca directo al jugador humano
