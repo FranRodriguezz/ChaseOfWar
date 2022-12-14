@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public abstract class Jugador {
     private int vida;
-    private MazoDeCartas mazo;
-    private ArrayList<Carta> baraja;
+    private final MazoDeCartas mazo;
+    private final ArrayList<Carta> baraja;
 
     //Pre:
     //Post: Constructor de un jugador para usar en las clases hijas
@@ -147,7 +147,6 @@ public abstract class Jugador {
         int nroCartaAAtacar = 0;
         while (nroCartaAAtacar < 2) {
             if (partida.getTablero().hayCarta(1, nroCartaAAtacar)) {
-                //var carta = partida.getTablero().getTablero(1, nroCartaAAtacar);
                 if(partida.getTablero().getTablero(1, nroCartaAAtacar).perdioDuelo(hacerDanioIA(cartaActual.getTipo()))){
                     partida.getTablero().eliminarCarta(1, nroCartaAAtacar);
                     nroCartaAAtacar = 2;

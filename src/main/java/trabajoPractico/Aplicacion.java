@@ -37,6 +37,13 @@ public class Aplicacion extends Application {
 
     private void crearUI(Partida partida, VBox vbox) throws FileNotFoundException {
 
+        if(partida.finalizada()){
+            var msjFinal = new Label(partida.ganador());
+            vbox.getChildren().clear();
+            vbox.getChildren().add(msjFinal);
+            return;
+        }
+
         //Boton atacar vida, y vida enemiga:
         HBox vidaIA = new HBox(2);
         Label barraVidaIA = new Label("Vida IA: " + partida.getJugadorIA().getVida());
@@ -215,6 +222,7 @@ public class Aplicacion extends Application {
             });
         }
     }
+
     private void UIenemiga(Partida partida, VBox vbox) throws FileNotFoundException {
         //cartas enemigas:
         HBox hboxIA = new HBox(partida.getJugadorIA().getBaraja().size());

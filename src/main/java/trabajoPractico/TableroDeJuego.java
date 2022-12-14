@@ -1,7 +1,7 @@
 package trabajoPractico;
 
 public class TableroDeJuego {
-    private Carta [][] tablero;
+    private final Carta [][] tablero;
     private final int filaHumano = 1;
     private final int slotCartas = 3;
 
