@@ -285,12 +285,6 @@ public class Aplicacion extends Application {
     private void colocarCartasUsuario(Partida partida, HBox hbox) throws FileNotFoundException {
         for(int i = 0; i < partida.getJugadorHumano().getBaraja().size(); i++){
             var group = asignarCartaUsuario(partida.getJugadorHumano().getBaraja().get(i).getTipo());
-            int finalI = i;
-            group.setOnMouseClicked(mouseEvent -> {
-                partida.getTablero().insertarCarta(1, 1,
-                        partida.getJugadorHumano().getBaraja().remove(finalI));
-                partida.getJugadorHumano().removerCartaAtk(partida.getJugadorHumano().getBaraja().get(finalI).getTipo());
-            });
             hbox.setAlignment(Pos.CENTER);
             hbox.setSpacing(60);
             hbox.getChildren().add(group);
