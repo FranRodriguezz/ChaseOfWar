@@ -36,4 +36,10 @@ public class JugadorHumanoTest {
         assertTrue(jugador.hayCartaMagiaEnBaraja());
     }
 
+    @Test
+    public void hayCartaAtk() {
+        var jugador = new JugadorHumano();
+        jugador.getBaraja().add(new Carta(TipoDeCarta.LUCHADOR));
+        assertTrue(jugador.hayCartaAtkEnBaraja());
+    }
 }
