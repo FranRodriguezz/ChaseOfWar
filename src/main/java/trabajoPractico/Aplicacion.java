@@ -252,7 +252,7 @@ public class Aplicacion extends Application {
     }
 
 
-    //Coloca el tablero de algun jugador segun el nro de fila (0 o 1)
+    //Coloca el tablero de algun jugador segun el nro de fila (0 o 1) y le da funcionalidad a clickear la imagen de una carta en el tablero
     private void colocarTablero(Partida partida, HBox hBox, int filaTarget, int[] danio) throws FileNotFoundException {
         Image image;
         for(int i = 0; i < 3; i++){
