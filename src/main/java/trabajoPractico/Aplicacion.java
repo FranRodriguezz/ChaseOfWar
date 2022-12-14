@@ -157,8 +157,7 @@ public class Aplicacion extends Application {
         vbox.getChildren().add(vida);
 
         final Carta[] carta = new Carta[1];
-        final boolean[] magia = new boolean[1];
-        colocarBotonesCartas(partida, botonesCartas, carta, magia);
+        colocarBotonesCartas(partida, botonesCartas, carta);
 
         //acciones botones colocar:
         btnCol1.setOnAction(actionEvent -> {
@@ -204,18 +203,16 @@ public class Aplicacion extends Application {
     }
 
 
-    private void colocarBotonesCartas(Partida partida, HBox botonesCartas, Carta[] carta, boolean[] magia){
+    private void colocarBotonesCartas(Partida partida, HBox botonesCartas, Carta[] carta){
         for(int i = 0; i < partida.getJugadorHumano().getBaraja().size(); i++){
             Button btn = new Button(partida.getJugadorHumano().getBaraja().get(i).getTipo().toString());
             botonesCartas.getChildren().add(btn);
             int finalI = i;
             btn.setOnAction(actionEvent -> {
                 if(partida.getJugadorHumano().getBaraja().get(finalI).getTipo() == TipoDeCarta.MAGIA){
-                    magia[0] = true;
                     partida.getJugadorHumano().removerCartaMagia();
                 }
                 else{
-                    magia[0] = false;
                     carta[0] = new Carta(partida.getJugadorHumano().getBaraja().get(finalI).getTipo());
                     partida.getJugadorHumano().removerCartaAtk(partida.getJugadorHumano().getBaraja().get(finalI).getTipo());
                 }
