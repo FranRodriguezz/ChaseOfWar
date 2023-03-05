@@ -21,9 +21,8 @@ Captura durante partida:
 
 ![image](https://user-images.githubusercontent.com/102701608/207484225-0d7ea75e-8d02-4245-8843-b12f397c6d89.png)
 
-
-
-
+### Estado:
+El juego se encuentra sin finalizar. La interfaz grafica posee errores que rompen el juego. El codigo tiene errores correspondientes a la IA.
 
 
 
